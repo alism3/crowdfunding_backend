@@ -9,6 +9,15 @@ class Fundraiser(models.Model): #We inherit our class from the built-in models.M
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True) #date_created field should be automatically set with the current date when a new record is created.
 
+class Pledge(models.Model):
+    amount = models.IntegerField()
+    comment = models.CharField(max_length=200)
+    anonymous = models.BooleanField()
+    fundraiser = models.ForeignKey(
+        'Fundraiser' ,
+        related_name='pledges',
+        on_delete=models.CASCADE
+    )
 ##In plain English, we have basically told Django this...
 
 #"Hey, make me a table in the database called Fundraiser, and give it the following columns:
