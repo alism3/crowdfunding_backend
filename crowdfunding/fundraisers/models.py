@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 class Fundraiser(models.Model): #We inherit our class from the built-in models.Model that comes with Django
@@ -8,6 +9,11 @@ class Fundraiser(models.Model): #We inherit our class from the built-in models.M
     image = models.URLField()
     is_open = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True) #date_created field should be automatically set with the current date when a new record is created.
+    owner = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='owned_fundraisers'
+    )
 
 class Pledge(models.Model):
     amount = models.IntegerField()
@@ -17,6 +23,11 @@ class Pledge(models.Model):
         'Fundraiser' ,
         related_name='pledges',
         on_delete=models.CASCADE
+    )
+    supporter = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='pledges'
     )
 ##In plain English, we have basically told Django this...
 

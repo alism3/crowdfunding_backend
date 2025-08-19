@@ -41,4 +41,4 @@ It can be helpful to keep the markdown preview open in VS Code so that you can s
 
 ### DB Schema
 ![]( {{ ./relative/path/to/your/schema/image.png }} )
-![](./database.drawio.svg)
+![](./database.drawio.cdsvg)
