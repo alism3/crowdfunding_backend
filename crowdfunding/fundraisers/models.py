@@ -29,6 +29,7 @@ class Pledge(models.Model):
         on_delete=models.CASCADE,
         related_name='pledges'
     )
+
 ##In plain English, we have basically told Django this...
 
 #"Hey, make me a table in the database called Fundraiser, and give it the following columns:

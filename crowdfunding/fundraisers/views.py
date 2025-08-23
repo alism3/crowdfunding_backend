@@ -1,4 +1,3 @@
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -16,7 +15,7 @@ class FundraiserList(APIView):
     def post(self, request):
        serializer = FundraiserSerializer(data=request.data)
        if serializer.is_valid():
-           serializer.save()
+           serializer.save(owner=request.user)
            return Response(
                serializer.data,
                status=status.HTTP_201_CREATED
@@ -39,6 +38,7 @@ class FundraiserDetail(APIView):
        serializer = FundraiserDetailSerializer(fundraiser)
        return Response(serializer.data)  
 
+#Pledge Views
 class PledgeList(APIView):
     def get(self,request):
         pledges = Pledge.objects.all()
@@ -48,7 +48,7 @@ class PledgeList(APIView):
     def post(self,request):
         serializer = PledgeSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(supporter=request.user)
             return Response(
                 serializer.data,
                 status= status.HTTP_201_CREATED
