@@ -2,16 +2,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from .models import CustomUser #.models means in the same folder
+from .models import CustomUser
 from .serializers import CustomUserSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 
 
-class CustomUserList(APIView):
+class CustomUserAPIView(APIView):
     def get(self,request):
-        users = CustomUser.object.all()
-        serializers = CustomUserSerializer(users, many=True)
+        users = CustomUser.objects.all()
+        serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
     
     def post(self, request):
@@ -20,25 +20,25 @@ class CustomUserList(APIView):
             serializer.save()
             return Response(
             serializer.data,
-            status=status.HTTPS_201_CREATED
+            status=status.HTTP_201_CREATED
         )
         else:
             return Response(
                 serializer.errors,
-                status=status.HTTPS_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST
         )
 
 class CustomUserDetail(APIView):
     def get_object(self, pk):
         try:
             return CustomUser.objects.get(pk=pk)
-        except CustomerUser.DoesNotExist:
+        except CustomUser.DoesNotExist:
             raise Http404
 
-            def get(self,request, pk):
-                user = self.get_object(pk)
-                serializer = CustomUserSerializer(user)
-                return Response(serializer.data)
+    def get(self,request, pk):
+        user = self.get_object(pk)
+        serializer = CustomUserSerializer(user)
+        return Response(serializer.data)
 
 class CustomAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -56,3 +56,13 @@ class CustomAuthToken(ObtainAuthToken):
             'user_id': user.id,
             'email': user.email
         })
+    
+#    def put(self, request, pk):
+#        user = self.get_object(pk)
+#        self.check_object_permissions(request, user)
+#        serializer = CustomUserSerializer(user, data=request.data, partial=True)
+#        if serializer.is_valid():
+#            serializer.save()
+#            return Response(serializer.data)
+#        else:
+#            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

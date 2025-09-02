@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.http import Http404
 from .models import Fundraiser, Pledge
 from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetailSerializer
-from .permissions import IsOwnerOrReadonly
+from .permissions import IsOwnerOrReadonly, IsSupporterOrReadonly
 
 class FundraiserList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -66,11 +66,13 @@ class FundraiserDetail(APIView):
 
 #Pledge Views
 class PledgeList(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly] #Me (Correct in insomnia, If I don't have the permission is not)
+
     def get(self,request):
         pledges = Pledge.objects.all()
         serializer = PledgeSerializer(pledges, many=True)
-
         return Response(serializer.data)
+    
     def post(self,request):
         serializer = PledgeSerializer(data=request.data)
         if serializer.is_valid():
@@ -84,3 +86,42 @@ class PledgeList(APIView):
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+
+#Me, I am trying to add the view    
+
+class PledgeDetail(APIView):
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        IsSupporterOrReadonly
+        ]
+    
+    def get_object(self, pk): #This is the method to find a specific individual pledge)
+        try:
+            pledge = Pledge.objects.get(pk=pk)
+            self.check_object_permissions(self.request, pledge) #Add this, do  I need it?
+            return pledge
+        except Pledge.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, pk):
+        pledge = self.get_object(pk)
+        serializer = PledgeSerializer(pledge) #Why is this not PledgeDetailSerializer???
+        return Response(serializer.data)
+        
+    
+    def put(self, request, pk): #Replace a record in te database)
+        pledge = self.get_object(pk)
+        serializer = PledgeSerializer(
+            instance=pledge,
+            data=request.data,
+            partial=True
+        )
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
