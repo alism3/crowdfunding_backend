@@ -8,8 +8,15 @@ class FundraiserSerializer(serializers.ModelSerializer):
         model = apps.get_model('fundraisers.Fundraiser')
         fields = '__all__'
 
+class PledgeSerializer(serializers.ModelSerializer):
+    pledge = serializers.ReadOnlyField(source= 'support.id')
+    
+    class Meta:
+        model = apps.get_model('fundraisers.Pledge')
+        fields = '__all__'
+
 class FundraiserDetailSerializer(FundraiserSerializer): #CORRECT
-    fundraiser =  FundraiserSerializer(many=True, read_only=True) #it will not override the data
+    pledges =  PledgeSerializer(many=True, read_only=True) #it will not override the data
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
@@ -22,12 +29,6 @@ class FundraiserDetailSerializer(FundraiserSerializer): #CORRECT
         instance.save()
         return instance
     
-class PledgeSerializer(serializers.ModelSerializer):
-    pledge = serializers.ReadOnlyField(source= 'support.id')
-    
-    class Meta:
-        model = apps.get_model('fundraisers.Pledge')
-        fields = '__all__'
 
     #Me Modification for the Pledge
 
@@ -38,7 +39,5 @@ class PledgeDetailSerializer(PledgeSerializer):
         instance.amount = validated_data.get('amount', instance.amount)
         instance.comment = validated_data.get('comment', instance.comment)
         instance.anonymous = validated_data.get('anonymous', instance.anonymous)
-        instance.fundraiser = validated_data.get('fundraiser', instance.fundraiser)
-        instance.supporter = validated_data.get('supporter', instance.supporter)
         instance.save()
         return instance

@@ -8,7 +8,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 
 
-class CustomUserAPIView(APIView):
+class CustomUserList(APIView):
     def get(self,request):
         users = CustomUser.objects.all()
         serializer = CustomUserSerializer(users, many=True)
