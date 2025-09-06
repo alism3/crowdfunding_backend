@@ -2,21 +2,19 @@
 Django_Project
 
 # Crowdfunding Back End
-{{ your name here }}
+Alpaca_Heaven
 
 ## Planning:
 ### Concept/Name
-Alpaca Paws & Causes: A whimsical crowdfunding platform dedicated to supporting alpaca farms 
-and the adorable alpacas themselves. The idea is to offer unique, humor-filled "pledge levels" 
-that connect donors directly to the specific needs and quirky personalities of the 
+Alpaca Paws & Causes: A crowdfunding platform dedicated to supporting alpaca farms and the adorable alpacas themselves. The idea is to offer unique, humor-filled "pledge levels" that connect donors directly to the specific needs and quirky personalities of the 
 alpaca community. From funding "Marta's Shopping Spree" (for a new Prada bag, of course!) 
 to ensuring "Mama Alpaca's Brood" is well-fed or buying "Christmas Sweaters for 
 Shearling Alpacas," we make giving fun and impactful. 
-My goal is to bring a smile to your face while providing vital support to alpaca 
-farmers and their fluffy friends.
+My goal is to bring a smile to your face while providing vital support to alpaca farmers and their fluffy friends.
 
 ### Intended Audience/User Stories
 {{ Who are your intended audience? How will they use the website? }}
+
 AUDIENCE
 - Animal lovers, especially those with a fondness for alpacas. (Like Me)
 - People looking for unique and humorous gift ideas. (Can be part of a gift for a birthday, your friends make a donation and you receive a personalize photo of an Alpaca)
@@ -25,21 +23,24 @@ AUDIENCE
 - Existing fans or visitors of alpaca farms who want to offer direct support.
 
 USER STORIES
+
 As a potential donor:
   -  I want to easily browse different alpaca fundraising campaigns so I can find one that resonates with me. (e.g., I want to help Marta with her Prada addiction.)
   - I want to see different humorous pledge levels with clear descriptions so I can choose how much I want to contribute and what "cause" I'm supporting. (e.g., I want to donate to the "Christmas Sweater" fund.)
   - I want to securely make a pledge so my contribution reaches the farmer.
-  - I want to receive updates on the campaign I supported so I can see the impact of my donation. (e.g., Did Marta get her bag? Are the alpacas warm?)
-As an alpaca farmer, 
+  
+As an alpaca farmer:
   - I want to create a new fundraising campaign with unique and funny pledge categories so I can effectively raise funds for my specific needs. (e.g., I need money for new fencing, but I'll make it sound like the alpacas are escaping to find better snacks.)
   - I want to track the progress of my campaigns and see who has pledged so I can manage my fundraising efforts.
   -  I want to be able to post updates to my campaign so I can keep donors engaged and informed.
 
 ### Front End Pages/Functionality
-- Home page
-    - Featured fundraiser
+
+Home page
+  - See All of the available fundraiser active
+Fundraiser page campaign
+  - A page 
 -   Search page
-      - 
      {{ A list of dot-points showing functionality is available on this page }}
     - {{ etc }}
     - {{ etc }}

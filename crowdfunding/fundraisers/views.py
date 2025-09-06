@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 from .models import Fundraiser, Pledge
-from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetailSerializer
+from .serializers import FundraiserSerializer, PledgeSerializer, FundraiserDetailSerializer, PledgeDetailSerializer
 from .permissions import IsOwnerOrReadonly, IsSupporterOrReadonly
 
 class FundraiserList(APIView):
@@ -106,13 +106,12 @@ class PledgeDetail(APIView):
     
     def get(self, request, pk):
         pledge = self.get_object(pk)
-        serializer = PledgeSerializer(pledge) #Why is this not PledgeDetailSerializer???
+        serializer = PledgeDetailSerializer(pledge) #Why is this not PledgeDetailSerializer???
         return Response(serializer.data)
-        
     
     def put(self, request, pk): #Replace a record in te database)
         pledge = self.get_object(pk)
-        serializer = PledgeSerializer(
+        serializer = PledgeDetailSerializer(
             instance=pledge,
             data=request.data,
             partial=True

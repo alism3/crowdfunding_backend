@@ -33,7 +33,7 @@ class FundraiserDetailSerializer(FundraiserSerializer): #CORRECT
     #Me Modification for the Pledge
 
 class PledgeDetailSerializer(PledgeSerializer):
-    pledges =  PledgeSerializer(many=True, read_only=True)
+    # pledges =  PledgeSerializer(many=True, read_only=True)
 
     def update(self, instance, validated_data):
         instance.amount = validated_data.get('amount', instance.amount)
