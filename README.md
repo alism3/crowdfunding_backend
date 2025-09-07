@@ -25,16 +25,24 @@ AUDIENCE
 USER STORIES
 
 As a potential donor:
-  -  I want to easily browse different alpaca fundraising campaigns so I can find one that resonates with me. (e.g., I want to help Marta with her Prada addiction.)
+  - I want to easily browse different alpaca fundraising campaigns so I can find one that resonates with me. (e.g., I want to help Marta with her Prada addiction.)
   - I want to see different humorous pledge levels with clear descriptions so I can choose how much I want to contribute and what "cause" I'm supporting. (e.g., I want to donate to the "Christmas Sweater" fund.)
   - I want to securely make a pledge so my contribution reaches the farmer.
   
 As an alpaca farmer:
   - I want to create a new fundraising campaign with unique and funny pledge categories so I can effectively raise funds for my specific needs. (e.g., I need money for new fencing, but I'll make it sound like the alpacas are escaping to find better snacks.)
   - I want to track the progress of my campaigns and see who has pledged so I can manage my fundraising efforts.
-  -  I want to be able to post updates to my campaign so I can keep donors engaged and informed.
+  - I want to be able to post updates to my campaign so I can keep donors engaged and informed.
 
 ### Front End Pages/Functionality
+-   Home Page: Displays all active fundraisers, calls to action for new farmers.
+-   Single Campaign Detail Page: Full description of a campaign, "Make a Pledge" button, campaign updates, share options.
+-   User Dashboard/Profile Page (for logged-in users)**:
+		Supporter only: List of pledged campaigns, pledge history.
+		Farmers only: List of active campaigns, options to create/edit/update campaigns.
+-   Pledge Confirmation/Payment Page: Summary, confirmation.
+-   Create/Edit Campaign Page (for farmers): Form fields for campaign details, pledge levels, image/video uploads, preview.
+-   Login/Registration Page: Standard user authentication.
 
 ## Features
 
