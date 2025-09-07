@@ -115,6 +115,23 @@ PUT METHOD
 		Before ---> C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Put_UpdatePledGoal.png
 		After ----> C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Put_UpdatePledGoal2.png
 
+## Step by Step to create a new user:
+1. To create a new user, I need to send a POST request to the '/users/' endpoint
+   - Open Insomnia and click on "Create a new user" in my "User" folder, link is https://alpaca-heaven-69a960f4f662.herokuapp.com/users/
+   - Open the section "Body" and write in Json format username, email and password
+   - Send the request, if successful I will have the confirmation about my new user (example: C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Post_Create_Newuser.png)
+2. To prove that I am who I am as a user, I need to Obtain the Authorization Token (for the Log In). To do this I have to send a POST request to the /api-token-auth/ endpoint
+   - On Insomnia click on "Get user Token (Patricia)" in my "User" folder, link is https://alpaca-heaven-69a960f4f662.herokuapp.com/api-token-auth/
+   - Put in the body the "username" and "password" to get the token (example: C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Post_Create_Newuser.png)
+   - Send the request, If successful, your terminal will show a JSON response with your unique authentication token
+3. With the token, it's possible to create a new fundraiser because I need to be authenticated to complete this request and now I need to I need to send a POST request to the '/users/' endpoint
+   - On Insomnia click on "Create a new fundraiser" in my "Fundraisers" folder, link is https://alpaca-heaven-69a960f4f662.herokuapp.com/fundraisers/
+   - Put the details about the fundraiser (title, description, goal, image URL, and if it's open).
+   - In the section "Prefix" write "Token " (Capital letter and space at the end is important) 
+   - In the section "Auth", in the field "Body" write $response and select "response => body attribute", cancel the $ and click on the red rectangle to open other options.
+   - In the field "Request" I selected the right Token that I used before to get the token (in my case "Get Auth Token (Patricia)"), in the "filter" fiels put "$.token" and the correct token should appear and click on "done" (example: C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Get_users_token.png)
+   - Send the request, If successful, the terminal will show a JSON response confirming your fundraiser was created. I would also be able to see it when I try to "Fetch all of fundraisers"
+
 
 ### DB Schema
 ![]( {{ ./relative/path/to/your/schema/image.png }} )
