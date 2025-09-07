@@ -1,15 +1,15 @@
-# crowdfunding_backend
-Django_Project
-
 # Crowdfunding Back End
 Alpaca_Heaven
 
+# Link to the Deployed Project
+https://alpaca-heaven-69a960f4f662.herokuapp.com/
+
 ## Planning:
 ### Concept/Name
-Alpaca Paws & Causes: A crowdfunding platform dedicated to supporting alpaca farms and the adorable alpacas themselves. The idea is to offer unique, humor-filled "pledge levels" that connect donors directly to the specific needs and quirky personalities of the 
+A crowdfunding platform dedicated to supporting alpaca farms and the adorable alpacas themselves. The idea is to offer unique, humor-filled "pledge levels" that connect donors directly to the specific needs and quirky personalities of the 
 alpaca community. From funding "Marta's Shopping Spree" (for a new Prada bag, of course!) 
 to ensuring "Mama Alpaca's Brood" is well-fed or buying "Christmas Sweaters for 
-Shearling Alpacas," we make giving fun and impactful. 
+Shearling Alpacas". The idea is to make giving fun and impactful. 
 My goal is to bring a smile to your face while providing vital support to alpaca farmers and their fluffy friends.
 
 ### Intended Audience/User Stories
@@ -36,62 +36,22 @@ As an alpaca farmer:
 
 ### Front End Pages/Functionality
 
-Home page
-  - See All of the available fundraiser active
-Fundraiser page campaign
-  - A page 
--   Search page
-     {{ A list of dot-points showing functionality is available on this page }}
-    - {{ etc }}
-    - {{ etc }}
-- {{ A second page available on the front end }}
-    - {{ Another list of dot-points showing functionality }}
-    - {{ etc }}
+## Features
 
-Home page
-	- Featured fundraiser (e.g., "This Month's Funniest Cause: Alpacas Against Bland Hay!")
-	- Recently added or trending campaigns.
-	- Call to action for new farmers to create a campaign.
-	- Search bar for finding specific campaigns.
-	- About Us/How it Works section.
-  
-Search/Browse Campaigns Page
-	- List of all active fundraising campaigns, with short descriptions and progress bars.
-	- Filtering options (e.g., by category: "Aesthetic," "Social Help," "Alpaca Comfort").
-	- Sorting options (e.g., by amount raised, newness, ending soon).
-	- Pagination for a large number of campaigns.
-  
-Single Campaign Detail Page
-	- Full description of the campaign and the farmer.
-	- Detailed progress bar and target amount.
-	- List of unique, humorous pledge levels with descriptions and associated donation amounts.
-	- Button to "Make a Pledge."
-	- Section for campaign updates (from the farmer).
-	- Comments/discussion section (optional).
-	- Share buttons (social media).
-
-User Dashboard/Profile Page 
-for logged-in users
-	- List of campaigns the user has pledged to.
-	- Ability to view pledge history.
-For farmers
-    - List of their active and past campaigns.
-	- Option to create a new campaign.
-	- Ability to edit/update their campaigns.
-
-Pledge Confirmation/Payment Page
-	- Summary of the chosen pledge level and amount.
-	- Secure payment gateway integration.
-	- Confirmation of successful pledge.
-
-Create/Edit Campaign Page (for farmers)
-	- Form fields for campaign title, description, target amount, end date.
-	- Ability to define multiple pledge levels with descriptions and amounts.
-	- Option to upload images/videos for the campaign.
-	- Preview function.
-  
-Login/Registration Page
-	- Standard user authentication.
+User Authentication & Authorization: 
+     - Secure user registration 
+     - Login (using token-based authentication)
+     - Permission management (owners and supporters).
+Fundraiser Management:
+     - Create, view, update, and retrieve fundraiser campaigns.
+     - A list of information for each fundraiser
+     - Track of the total amount pledged for each fundraiser.
+Pledge System:
+     - Users can make pledges to fundraisers, specifying an amount, comment, and anonymity status.
+     - Pledges are linked to fundraisers and individual supporters.
+Permissions: 
+     - Only owners can edit their own content
+     - Only supporters can manage their pledges.
 
 ### API Spec
 {{ Fill out the table below to define your endpoints. An example of what this might look like is shown at the bottom of the page. 
@@ -100,17 +60,58 @@ It might look messy here in the PDF, but once it's rendered it looks very neat!
 
 It can be helpful to keep the markdown preview open in VS Code so that you can see what you're typing more easily. }}
 
-| URL             | HTTP Method | Purpose                    | Request Body | Success Response Code | Authentication/Authorisation |
-| --------------- | ----------- | -------------------------------- | ------------ | --------------------- | ---------------------------- |
-| /fundraisers/   | GET         | Fetch all the fundraisers        | N/A          | 200                   | None                         |
-| /fundraisers/   | POST        | Create a new fundraiser          | JSON Payload | 201                   | Any logged in user           |
-| /fundraisers/1/ | GET         | Fetch a single fundraiser by ID  | N/A          | 200                   | None                         |
-| /pledges/       | GET         | Fetch all pledges                | N/A          | 200                   | (?)                          |
-| /pledges/       | POST        | New pledges for a fundraiser     | JSON payload | 201                   | Any logged in user           |
-| /pledges/       | POST        | New pledges for a fundraiser     | JSON payload | 201                   | Any logged in user           |
+| URL                | HTTP Method | Purpose                               | Request Body | Success Response Code | Authentication/Authorisation |
+| ---------------    | ----------- | --------------------------------      | ------------ | --------------------- | ---------------------------- |
+| /fundraisers/      | GET         | Fetch all the fundraisers             | N/A          | 200                   | None                         |
+| /fundraisers/      | POST        | Create a new fundraiser               | JSON Payload | 201                   | Any logged in user           |
+| /fundraisers/<pk>/ | GET         | Fetch a single fundraiser by ID       | N/A          | 200                   | None                         |
+| /fundraisers/<pk>/ | PUT         | Update a single fundraisers by ID     | JSON Payload | 200                   | Any logged in user           |
+| /pledges/          | GET         | Fetch all the pledges                 | N/A          | 200                   | None                         |
+| /pledges/          | POST        | Create a new pledges for a fundraiser | JSON payload | 201                   | Any logged in user           |
+| /pledges/<pk>/     | GET         | Fetch a single pledge by ID           | N/A          | 200                   | None                         |
+| /pledges/<pk>/     | PUT         | Update a single pledge by ID          | JSON Payload | 200                   | Any logged in user           |
+| /users/            | GET         | Fetch all the users                   | N/A          | 200                   | None                         |
+| /users/            | POST        | Register a new user                   | JSON payload | 201                   | Any logged in user           |
+| /api-token-auth/   | POST        | Obtain an authentication token        | JSON Payload | 200                   | None                         |
 
+
+# Evidence of a successful method for each endpoint
+
+GET METHOD
+  - Get (Fetch all the fundraisers)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Get_all_Fundraisers.png
+  - Get (Fetch all the pledges)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Get_all_Pledges.png
+  - Get (Fetch all the users)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Get_all_users.png
+ - Get (Fetch a single fundraiser by ID)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Get_FundbyID.png
+  - Get (Fetch a single pledge by ID)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Get_PledbyID.png
+  - Get (Obtain an authentication token)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Get_users_token.png
+
+POST METHOD
+  - Post (Create a new fundraiser)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Post_Create_NewFund.png
+  - Post (Create a new pledge)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Post_Create_NewPledge.png
+  - Post (Create a new user)
+		C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Post_Create_Newuser.png
+
+PUT METHOD
+  - Put (Update a single fundraisers by ID)
+		Before ---> C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Put_UpdateFundGoal.png
+		After ----> C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Put_UpdateFundGoal2.png
+  - Put (Update a single pledge by ID)
+		Before ---> C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Put_UpdatePledGoal.png
+		After ----> C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\Screenshoot_Insomnia\Put_UpdatePledGoal2.png
 
 
 ### DB Schema
 ![]( {{ ./relative/path/to/your/schema/image.png }} )
-![](./database.drawio.cdsvg)
+![](./database.drawio.svg)
+
+Below is the conceptual database schema for the Alpaca Heaven backend.
+Path: C:\Users\alice\Desktop\SheCodesAU\crowdfunding_backend\database.drawio.svg
+![](./database.drawio.svg)
