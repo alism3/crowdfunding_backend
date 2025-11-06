@@ -9,7 +9,6 @@ from .permissions import IsOwnerOrReadonly
 class FundraiserList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-
     def get(self, request):
         fundraisers = Fundraiser.objects.all()
         serializer = FundraiserSerializer(fundraisers, many=True)
@@ -63,24 +62,53 @@ class FundraiserDetail(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
+    def delete(self, request, pk):
+        fundraiser = self.get_object(pk)
+        
+        # Allow superusers to delete any fundraiser
+        if request.user.is_superuser:
+            fundraiser.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        # For regular users, the permission check is already done in get_object
+        fundraiser.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-#Pledge Views
+# Pledge Views
 class PledgeList(APIView):
-    def get(self,request):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
+    def get(self, request):
         pledges = Pledge.objects.all()
         serializer = PledgeSerializer(pledges, many=True)
-
         return Response(serializer.data)
-    def post(self,request):
+    
+    def post(self, request):
+        print(f"Pledge data received: {request.data}")  # Debug line
         serializer = PledgeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(supporter=request.user)
             return Response(
                 serializer.data,
-                status= status.HTTP_201_CREATED
+                status=status.HTTP_201_CREATED
             )
         else:
+            print(f"Serializer errors: {serializer.errors}")  # Debug line
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+class PledgeDetail(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    
+    def get_object(self, pk):
+        try:
+            return Pledge.objects.get(pk=pk)
+        except Pledge.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        pledge = self.get_object(pk)
+        serializer = PledgeSerializer(pledge)
+        return Response(serializer.data)
