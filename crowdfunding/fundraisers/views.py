@@ -9,7 +9,6 @@ from .permissions import IsOwnerOrReadonly, IsSupporterOrReadonly
 class FundraiserList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-
     def get(self, request):
         fundraisers = Fundraiser.objects.all()
         serializer = FundraiserSerializer(fundraisers, many=True)
@@ -63,8 +62,19 @@ class FundraiserDetail(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
+    def delete(self, request, pk):
+        fundraiser = self.get_object(pk)
+        
+        # Allow superusers to delete any fundraiser
+        if request.user.is_superuser:
+            fundraiser.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        # For regular users, the permission check is already done in get_object
+        fundraiser.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-#Pledge Views
+# Pledge Views
 class PledgeList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly] #Me (Correct in insomnia, If I don't have the permission is not)
 
@@ -79,9 +89,10 @@ class PledgeList(APIView):
             serializer.save(supporter=request.user)
             return Response(
                 serializer.data,
-                status= status.HTTP_201_CREATED
+                status=status.HTTP_201_CREATED
             )
         else:
+            print(f"Serializer errors: {serializer.errors}")  # Debug line
             return Response(
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
